@@ -242,10 +242,10 @@ def make_image(line3,k_centers,point_index,make_gif,name):
 #%%
 
 N=540
-num_lines=5
+num_lines=10
 num_points=20 #number of points in each line
 s=5 #scalar used to draw lines
-noise=np.random.rand(num_points,3)*1
+noise=np.random.rand(num_points,3)*2
 print(noise)
 
 draw=1
@@ -257,12 +257,12 @@ count_angle=np.array(list(itertools.product(az,el)))
 cart=sph2cart(count_angle[:,0],count_angle[:,1])
 
 num_point_threshold=20
-point_distance_threshold=0.7
+point_distance_threshold=1.5
 merge_angle_point=0
 #%%
 centers=hough3(line3,cart,num_point_threshold,point_distance_threshold,merge_angle_point)
 colormap = np.array(['b','g','r','deeppink','y','c','m','gold','purple','pink','tan','lightgreen','sandybrown','olive'])
-kmeans = KMeans(n_clusters=5).fit(centers)
+kmeans = KMeans(n_clusters=num_lines).fit(centers)
 k_centers=kmeans.cluster_centers_
 pred_line3=[]
 point_index,Q1S,Q2S=cluster_points(k_centers,line3)
